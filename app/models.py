@@ -27,8 +27,25 @@ class Cakr(models.Model):
     num = models.IntegerField(1)
 
 
-
-
 class imgs(models.Model):
     imgname = models.CharField(max_length=1000)
 
+class Goodse(models.Model):
+    img = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
+    price = models.IntegerField()
+    num = models.IntegerField(default=100)
+
+
+class Cart(models.Model):
+    # 用户
+    user = models.ForeignKey(Usermode)
+
+#     商品
+    good = models.ForeignKey(Goodse)
+
+#  商品数量
+    number = models.IntegerField()
+
+#  是否选中
+    isselect = models.BooleanField(default=True)

@@ -8,6 +8,8 @@ urlpatterns = [
     url(r'^regist/$',views.regist,name='regist'),
     # 登录
     url(r'^login/$',views.login,name='login'),
+    #验证
+    url(r'^checkemail',views.checkemail,name='checkemail'),
     # 购物车
     url(r'^balance/$',views.balance,name='balance'),
     # 商品详情

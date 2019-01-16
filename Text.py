@@ -23,7 +23,6 @@ def get_page(offset):
     url = 'https://www.toutiao.com/search_content/?'+urlencode(params)
 
     response = requests.get(url)
-    print(url)
 
     if response.status_code == 200:
         return response.json()
@@ -79,8 +78,6 @@ def main(offset):
 
         save_image(item)
 
-
-# 不希望运行其他py文件时被执行的代码
 if __name__ == '__main__':
     main(5)
 

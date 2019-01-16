@@ -54,6 +54,23 @@ $(function(){
 		$(this).css({"border-color":"c9c9c9"})
 		$(this).parent().find("i").css({"background-position":"-25px -48px"})
 	})
+
+	 // 触发登录
+    $('#login_button').click(function () {
+        var islogin = true
+
+        // 遍历所有的输入框是否正确
+        $('.form-group').each(function () {
+
+            if ( !$(this).hasClass('has-success') ){
+                islogin = false
+            }
+        })
+
+        if (islogin){    // 都正确
+            $('#login').submit()
+        }
+    })
 	
 	//第三方登录
 	$(".qq").on("mouseenter",function(){
@@ -66,6 +83,6 @@ $(function(){
 	}).on("mouseleave",function(){
 		$(this).css({"background-position":"-369px -307px"})
 	})
-	
+
 	//保存登录信息
 })

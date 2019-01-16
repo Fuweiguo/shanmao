@@ -52,6 +52,14 @@ def login(request):
         else:  # 失败(用户名或密码错误)
             return render(request, 'login.html', context={'err': '用户名或密码错误'})
 
+def checkemail(request):
+    email = request.GET.get('username')
+    users = Usermode.objects.filter(email=email)
+    if users.exists():  # 占用
+        return JsonResponse({'msg': '账号被占用！', 'status':0})
+    else:   # 可用
+        return JsonResponse({'msg': '账号可以使用!', 'status':1})
+
 
 
 def balance(request):

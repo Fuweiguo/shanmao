@@ -42,7 +42,7 @@ i,a,em,b{
 	min-height: 485px;
 	border: 1px solid #dad6d6;
 	float: right;
-	box-shadow: -2px 0 1px #e9e7e7, /2px 0 1px #e9e7e7, 0 -2px 1px #e9e7e7, 0 2px 1px #e9e7e7;
+	box-shadow: -2px 0 1px #e9e7e7, 2px 0 1px #e9e7e7, 0 -2px 1px #e9e7e7, 0 2px 1px #e9e7e7;
 	-webkit-box-shadow: -2px 0 1px #e9e7e7, 2px 0 1px #e9e7e7, 0 -2px 1px #e9e7e7, 0 2px 1px #e9e7e7;
 	-moz-box-shadow: -2px 0 1px #e9e7e7, 2px 0 1px #e9e7e7, 0 -2px 1px #e9e7e7, 0 2px 1px #e9e7e7;
 	margin: 28px 2px 2px 2px;
