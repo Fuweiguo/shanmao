@@ -14,6 +14,13 @@ class Usermode(models.Model):
     email = models.CharField(max_length=40)
     password = models.CharField(max_length=40)
 
+class UserModes(models.Model):
+    username = models.CharField(max_length=100)
+    email = models.CharField(max_length=40)
+    password = models.CharField(max_length=40)
+    # 令牌
+    token = models.CharField(max_length=256)
+
 class goods(models.Model):
     goodsname = models.CharField(max_length=100)  # 商品名
     price = models.IntegerField  # 价格
@@ -49,3 +56,50 @@ class Cart(models.Model):
 
 #  是否选中
     isselect = models.BooleanField(default=True)
+
+
+
+#===============================================================
+
+class app_goods(models.Model):
+    goodsname = models.CharField(max_length=100)  # 商品名
+    name = models.CharField(max_length=100)
+    price = models.CharField(max_length=10)  # 价格
+    prices = models.CharField(max_length=10)  # 市场价
+
+class Cartt(models.Model):
+    img= models.CharField(max_length=100)
+    name= models.CharField(max_length=100)
+    price = models.CharField(max_length=10)
+    num = models.IntegerField
+
+class xiangqing(models.Model):
+    goods = app_goods
+
+class Carts(models.Model):
+    # 用户
+    user = models.ForeignKey(Usermode)
+
+    # 商品
+    goods = models.ForeignKey(app_goods)
+
+    # 额外信息 【手机: 版本、颜色、容量大小、数量...】
+    # 商品数量
+    number = models.IntegerField()
+    # 是否选中
+    isselect = models.BooleanField(default=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

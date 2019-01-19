@@ -800,4 +800,16 @@ $(function(){
 		})
 	}
 	tab()
+
+    // $(".done_name").click(function () {
+    // 	var user = user
+		// var goodsid = $(this).attr('goods_id')
+    //
+    //
+		// var data = {
+		// 	'goodsid':goodsid
+		// }
+
+    // })
+
 })

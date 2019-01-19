@@ -130,7 +130,7 @@
 					</div>
 				</div>
 				<div class="cart_list" style="background: #fff;">
-					<a style="background: url(img/ibar_sprites.png);background-position: 0px -272px;display: block;width: 20px;height: 20px;
+					<a style="background: url(static/img/1.jpg);background-position: 0px -272px;display: block;width: 20px;height: 20px;
 						position: absolute;top: 9px;right: 12px;cursor: pointer;" class="close"></a>
 					<h3 style="">购物车</h3>
 					<div class="panel_contant">
@@ -166,7 +166,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
 		</div>
 		<div class="title">
 			<span class="title_first">送货至：</span>
@@ -304,7 +303,7 @@
 						<div class="picture">
 							<span style="display: none;" class="goodId">1</span>
 							<a style="position: relative;display: inline-block;outline: 0px;">
-								<img src="{% static 'img/nike/444_P_1450995273861.jpg' %}" alt="耐克NikeLebron Xi Premium詹姆斯11代鸳鸯篮球鞋男士 US8/41码" width="405px" height="405px" class="goodImg" id="1" />
+								<img src="{{ goods.goodsname }}" alt="耐克NikeLebron Xi Premium詹姆斯11代鸳鸯篮球鞋男士 US8/41码" width="405px" height="405px" class="goodImg" id="1" />
 								<div class="magic_small"></div>
 								<div class="magic_box" style="z-index: 10;"id="big_img">
 
@@ -326,9 +325,10 @@
 						</div>
 					</div>
 					<div class="m_item_inner">
+
 						<div class="itemInfo">
 							<div class="name" style="padding-bottom: 20px;font-family: '微软雅黑';">
-								<h1 style="font-size: 16px;color: #666;font-weight: bold;">耐克NikeLebron Xi Premium詹姆斯11代鸳鸯篮球鞋男士 US8/41码</h1>
+								<h1 style="font-size: 16px;color: #666;font-weight: bold;">{{ goods.name }}</h1>
 							</div>
 							<div class="summary">
 								<div class="price">
@@ -342,8 +342,8 @@
 									</div>
 									<div>
 										<dl style="height: 40px;">
-											<dt><b class="goodPrice">￥<i>4310.00</i></b><a style="color: #005aa0;">（降价通知）</a></dt>
-											<dd style="text-decoration: line-through;width: 120px;">￥5172.00</dd>
+											<dt><b class="goodPrice">￥<i>{{ goods.price }}</i></b><a style="color: #005aa0;">（降价通知）</a></dt>
+											<dd style="text-decoration: line-through;width: 120px;">{{ goods.prices }}</dd>
 											<dd>0</dd>
 											<dd>6</dd>
 										</dl>
@@ -361,10 +361,16 @@
 						</div>
 						<div>
 							<div class="choose_btns">
-								<a href="{% url 'mt:balance' %}" class="buy">立即购买</a>
-								<a class="append">
-									 加入购物车
-								</a>
+                                <span class="append minus" goodsid="{{ goods.id }}">-</span>
+                                <span class="append num">
+                                    {% for cart in carts %}
+                                        {% if cart.goods.id == goods.id %}
+                                            {{ cart.num }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </span>
+                                 <span class="append plus" goodsid="{{ goods.id }}">+</span>
+
 							</div>
 						</div>
 					</div>

@@ -53,135 +53,180 @@ $(function(e) {
 	}
 	magic()
 
+	// #商品添加操作
+	$('.plus').click(function () {
+		console.log('加llll')
+
+		var goodsid = $(this).attr('goodsid')
+		var $that = $(this)
+
+		var data = {
+			'goodsid':goodsid,
+		}
+
+		$.get('/mt/addcart',data,function (response) {
+			console.log(response)
+			if (response.status == 0){
+				window.open('/mt/login', target='_self')
+			}else if (response.status == 1) {
+				$that.prev().show().html(response.number)
+				$that.prev().prev().show()
+			}
+
+        } )
+    })
+	// #商品删除
+	$('.minus').click(function () {
+		console.log('减zzz')
+
+		var goodsid = $(this).attr('goodsid')
+        var $that = $(this)
+
+        var data = {
+            'goodsid':goodsid
+        }
+
+        $.get('/axf/subcart/', data, function (response) {
+            console.log(response)
+            if (response.status == 1){  // 操作成功
+                if (response.number > 0) {  // 改变个数
+                    $that.next().html(response.number)
+                } else {    // 隐藏减和个数
+                    $that.next().hide()
+                    $that.hide()
+                }
+            }
+        })
+    })
+
 	//商品图片飞向购物车
-	function fly() {
-		$(".append").click(function(e) {
-			var i = 0;
-			var flyer = $("<img class='u-flyer'/>");
-			flyer.attr("src", "img/nike/444_P_1450995273861.jpg");
-			flyer.fly({
-				start: {
-					left: e.pageX,
-					top: e.pageY,
-					width: 90,
-					height: 90
-				},
-				end: {
-					left: $("#shopCart").offset().left,
-					top: $("#shopCart").offset().top,
-					width: 0,
-					height: 0
-				},
-				onEnd: function() {
-					if(confirm("宝贝已成功添加到购物车！是否继续购买？"))
-				        {
-				          	window.location.href = "http://127.0.0.1:8000/mt/balance/";
-				        }
-				        else 
-				        {
-				         	window.location.href = "http://127.0.0.1:8000/mt/balance/";
-				        }
-				}
-			})
-		})
-	}
-	fly();
+	// function fly() {
+	// 	$(".append").click(function(e) {
+	// 		var i = 0;
+	// 		var flyer = $("<img class='u-flyer'/>");
+	// 		flyer.attr("src", "img/nike/444_P_1450995273861.jpg");
+	// 		flyer.fly({
+	// 			start: {
+	// 				left: e.pageX,
+	// 				top: e.pageY,
+	// 				width: 90,
+	// 				height: 90
+	// 			},
+	// 			end: {
+	// 				left: $("#shopCart").offset().left,
+	// 				top: $("#shopCart").offset().top,
+	// 				width: 0,
+	// 				height: 0
+	// 			},
+	// 			onEnd: function() {
+	// 				if(confirm("宝贝已成功添加到购物车！是否继续购买？"))
+	// 			        {
+	// 			          	window.location.href = "http://127.0.0.1:8000/mt/balance/";
+	// 			        }
+	// 			        else
+	// 			        {
+	// 			         	window.location.href = "http://127.0.0.1:8000/mt/balance/";
+	// 			        }
+	// 			}
+	// 		})
+	// 	})
+	// }
+	// fly();
 
 	//商品加入购物车
-	function addTo() {
-		var goodNum = $(".cart_span").html();
-		var goodId = $(".goodId").html();
-		var goodName = $(".name h1").html();
-		var goodPicture = $(".spec_items").find("img");
-		var copyImg = goodPicture.clone();
-		var goodPrice = $(".goodPrice").find("i").html();
-		$(".append").click(function() {
-			$(".noGoods").hide();
-			$(".goods_list").show();
-			var goods = $.cookie("cart") ? JSON.parse($.cookie("cart")) : []
-
-			var isTrue = false;
-			for(var i = 0; i < goods.length; i++) {
-				if(goodId == goods[i].id) {
-					goods[i].num++;
-					goodNum++;
-					isTrue = true;
-				}
-			}
-			if(!isTrue) {
-				var good = {
-					id: goodId,
-					name: goodName,
-					price: goodPrice,
-					num: 1,
-					img: goodPicture.attr("src")
-				}
-				goodNum++;
-				goods.push(good);
-			}
-
-			$.cookie("cart", JSON.stringify(goods), {
-				expires: 1,
-				path: "/"
-			});
-			refresh();
-			console.log($.cookie("cart"));
-		})
-
-		var goods = $.cookie("cart");
-		if(goods) {
-			refresh()
-		}
-
-		function refresh() {
-			var ul = $(".list").empty();
-			var goods = $.cookie("cart");
-			if(goods) {
-				$(".noGoods").hide();
-				$(".goods_list").show();
-				goods = JSON.parse(goods);
-				for(var i = 0; i < goods.length; i++) {
-					var good = goods[i];
-					var li = $("<li></li>")
-					var del = $("<p>删除</p>")
-					var name = $("<a>" + goods[i].name + "</a>")
-					var num = $("<em>" + goods[i].num + "</em>")
-					var x = goods[i].num
-					var y = $(".goodPrice").find("i").html();
-					$(".cart_span").html(x);
-					$(".title_left").find("i").html(x);
-					$(".title_right").find("i").html(parseFloat(x * y))					
-					var price = $("<span>" + goods[i].price + "</span>")
-					copyImg.appendTo(li)
-					li.append(name, price, num, del);
-					ul.append(li);
-					del.css({
-						"display": "none"
-					})
-					$(".list li").mouseenter(function() {
-						$(this).find("p").show();
-					})
-					$(".list li").mouseleave(function() {
-						$(this).find("p").hide();
-					})
-				}				
-			}
-			$(".list li p").on("click", function() {
-				$.cookie("cart", "", {
-					expires: -1,
-					path: "/"
-				});
-				$(this).parent().parent().hide();
-				var x = $(this).parent().length
-				if($(this).parent().length <= 1) {
-					$(".noGoods").show();
-					$(".goods_list").hide();
-					$(".cart_span").html(0);
-					$(".title_left").find("i").html(0);
-					$(".title_right").find("i").html(parseFloat(0.00));
-				}
-			})
-		}
-	}
-	addTo()
+	// function addTo() {
+	// 	var goodNum = $(".cart_span").html();
+	// 	var goodId = $(".goodId").html();
+	// 	var goodName = $(".name h1").html();
+	// 	var goodPicture = $(".spec_items").find("img");
+	// 	var copyImg = goodPicture.clone();
+	// 	var goodPrice = $(".goodPrice").find("i").html();
+	// 	$(".append").click(function() {
+	// 		$(".noGoods").hide();
+	// 		$(".goods_list").show();
+	// 		var goods = $.cookie("cart") ? JSON.parse($.cookie("cart")) : []
+    //
+	// 		var isTrue = false;
+	// 		for(var i = 0; i < goods.length; i++) {
+	// 			if(goodId == goods[i].id) {
+	// 				goods[i].num++;
+	// 				goodNum++;
+	// 				isTrue = true;
+	// 			}
+	// 		}
+	// 		if(!isTrue) {
+	// 			var good = {
+	// 				id: goodId,
+	// 				name: goodName,
+	// 				price: goodPrice,
+	// 				num: 1,
+	// 				img: goodPicture.attr("src")
+	// 			}
+	// 			goodNum++;
+	// 			goods.push(good);
+	// 		}
+    //
+	// 		$.cookie("cart", JSON.stringify(goods), {
+	// 			expires: 1,
+	// 			path: "/"
+	// 		});
+	// 		refresh();
+	// 		console.log($.cookie("cart"));
+	// 	})
+    //
+	// 	var goods = $.cookie("cart");
+	// 	if(goods) {
+	// 		refresh()
+	// 	}
+    //
+	// 	function refresh() {
+	// 		var ul = $(".list").empty();
+	// 		var goods = $.cookie("cart");
+	// 		if(goods) {
+	// 			$(".noGoods").hide();
+	// 			$(".goods_list").show();
+	// 			goods = JSON.parse(goods);
+	// 			for(var i = 0; i < goods.length; i++) {
+	// 				var good = goods[i];
+	// 				var li = $("<li></li>")
+	// 				var del = $("<p>删除</p>")
+	// 				var name = $("<a>" + goods[i].name + "</a>")
+	// 				var num = $("<em>" + goods[i].num + "</em>")
+	// 				var x = goods[i].num
+	// 				var y = $(".goodPrice").find("i").html();
+	// 				$(".cart_span").html(x);
+	// 				$(".title_left").find("i").html(x);
+	// 				$(".title_right").find("i").html(parseFloat(x * y))
+	// 				var price = $("<span>" + goods[i].price + "</span>")
+	// 				copyImg.appendTo(li)
+	// 				li.append(name, price, num, del);
+	// 				ul.append(li);
+	// 				del.css({
+	// 					"display": "none"
+	// 				})
+	// 				$(".list li").mouseenter(function() {
+	// 					$(this).find("p").show();
+	// 				})
+	// 				$(".list li").mouseleave(function() {
+	// 					$(this).find("p").hide();
+	// 				})
+	// 			}
+	// 		}
+	// 		$(".list li p").on("click", function() {
+	// 			$.cookie("cart", "", {
+	// 				expires: -1,
+	// 				path: "/"
+	// 			});
+	// 			$(this).parent().parent().hide();
+	// 			var x = $(this).parent().length
+	// 			if($(this).parent().length <= 1) {
+	// 				$(".noGoods").show();
+	// 				$(".goods_list").hide();
+	// 				$(".cart_span").html(0);
+	// 				$(".title_left").find("i").html(0);
+	// 				$(".title_right").find("i").html(parseFloat(0.00));
+	// 			}
+	// 		})
+	// 	}
+	// }
 })
