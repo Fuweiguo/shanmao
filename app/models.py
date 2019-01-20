@@ -1,19 +1,5 @@
 from django.db import models
 
-# Create your models here.
-class User(models.Model):
-    username = models.CharField(max_length=80)
-    password = models.CharField(max_length=40)
-    phone = models.CharField(max_length=20)
-
-class goodslste(models.Model):
-    goodsname = models.CharField(max_length=20)
-
-class Usermode(models.Model):
-    username = models.CharField(max_length=100)
-    email = models.CharField(max_length=40)
-    password = models.CharField(max_length=40)
-
 class UserModes(models.Model):
     username = models.CharField(max_length=100)
     email = models.CharField(max_length=40)
@@ -21,64 +7,15 @@ class UserModes(models.Model):
     # 令牌
     token = models.CharField(max_length=256)
 
-class goods(models.Model):
-    goodsname = models.CharField(max_length=100)  # 商品名
-    price = models.IntegerField  # 价格
-    prices = models.IntegerField  # 市场价
-    Sales = models.IntegerField  # 销量
-    num = models.IntegerField  # 评价数
-
-class Cakr(models.Model):
-    goodsname = models.CharField(max_length=100)
-    price = models.IntegerField
-    num = models.IntegerField(1)
-
-
-class imgs(models.Model):
-    imgname = models.CharField(max_length=1000)
-
-class Goodse(models.Model):
-    img = models.CharField(max_length=100)
-    name = models.CharField(max_length=100)
-    price = models.IntegerField()
-    num = models.IntegerField(default=100)
-
-
-class Cart(models.Model):
-    # 用户
-    user = models.ForeignKey(Usermode)
-
-#     商品
-    good = models.ForeignKey(Goodse)
-
-#  商品数量
-    number = models.IntegerField()
-
-#  是否选中
-    isselect = models.BooleanField(default=True)
-
-
-
-#===============================================================
-
 class app_goods(models.Model):
     goodsname = models.CharField(max_length=100)  # 商品名
     name = models.CharField(max_length=100)
     price = models.CharField(max_length=10)  # 价格
     prices = models.CharField(max_length=10)  # 市场价
 
-class Cartt(models.Model):
-    img= models.CharField(max_length=100)
-    name= models.CharField(max_length=100)
-    price = models.CharField(max_length=10)
-    num = models.IntegerField
-
-class xiangqing(models.Model):
-    goods = app_goods
-
-class Carts(models.Model):
+class app_Carts(models.Model):
     # 用户
-    user = models.ForeignKey(Usermode)
+    user = models.ForeignKey(UserModes)
 
     # 商品
     goods = models.ForeignKey(app_goods)
@@ -90,7 +27,35 @@ class Carts(models.Model):
     isselect = models.BooleanField(default=True)
 
 
+# 订单 模型类
+# 一个用户 对应 多个订单
+class Order(models.Model):
+    # 用户
+    user = models.ForeignKey(UserModes)
+    # 状态
+    # -2 退款
+    # -1 过期
+    # 0 未付款
+    # 1 已付款，未发货
+    # 2 已付款，已发货
+    # 3 已签收，未评价
+    # 4 已评价
+    status = models.IntegerField(default=0)
+    # 创建时间
+    createtime = models.DateTimeField(auto_now_add=True)
+    # 订单号
+    identifier = models.CharField(max_length=256)
 
+
+# 订单商品 模型类
+# 一个订单 对应 多个商品
+class OrderGoods(models.Model):
+    # 订单
+    order = models.ForeignKey(Order)
+    # 商品
+    goods = models.ForeignKey(app_Carts)
+    # 商品规格
+    number = models.IntegerField()
 
 
 

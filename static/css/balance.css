@@ -1,3 +1,10 @@
+/* 选中后的样式*/
+footer .cart span {
+    background-image: url(/static/img/R.png);
+}
+footer .cart dd {
+    color: #ffd601;
+}
 
 .cart .no{
     display: inline-block;
@@ -8,6 +15,7 @@
 }
 .cart .glyphicon-ok{
     background: #ffd601;
+    background-color: #4cae4c;
     color: white;
     border-radius: 50%;
     width: 1rem;
@@ -29,7 +37,7 @@
     border-radius: 0.7rem;
 
     display: flex;
-    height: 6rem;
+    height: 20rem;
 }
 .cart ul li .confirm-wrapper{
     width: 10%;
@@ -41,30 +49,30 @@
     width: 90%;
     display: flex;
 }
-.img{
+.cart ul li .content-wrapper .img{
     width: 30%;
     line-height: 1;
 }
-.img img{
+.cart ul li .content-wrapper .img img{
     width: 100%;
 }
 
-.content-wrapper .detail{
+.cart ul li .content-wrapper .detail{
     width: 70%;
     font-size: 1rem;
 }
-.content-wrapper .detail .name{
+.cart ul li .content-wrapper .detail .name{
     width:100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.content-wrapper .detail .price{
+.cart ul li .content-wrapper .detail .price{
     color: indianred;
     font-weight: 500;
     margin: 0.3rem 0;
 }
-.content-wrapper .detail .num{
+.cart ul li .content-wrapper .detail .num{
     text-align: right;
     padding-right: 0.3rem;
 }
@@ -98,6 +106,7 @@
     vertical-align: middle;
     font-weight: normal;
     padding-left: 0.3rem;
+    padding-left: 0.3rem;
 }
 .cart .bill .bill-left .total{
     width: 50%;
@@ -111,6 +120,7 @@
     font-weight: normal;
     color: #ffd601;
 }
+
 
 .cart .bill .bill-right{
     width: 25%;

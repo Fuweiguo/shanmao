@@ -14,45 +14,49 @@
 
         <div class="cart">
             <ul>
-                <li>
-                    <div class="confirm-wrapper">
-                            <span class="glyphicon glyphicon-ok"></span>
-                    </div>
+                {% for cart in carts %}
+                   <li>
+                        <div class="confirm-wrapper" cartid="{{ cart.id }}">
+                            {% if cart.isselect %}
+                                <span class="glyphicon glyphicon-ok"></span>
+                            {% else %}
+                                <span class="no"></span>
+                            {% endif %}
+                        </div>
 
-                    <div class="content-wrapper">
-                        <div class="img">
-                            <img src="{% static 'img/hot_10.jpg' %}" alt="">
+                        <div class="content-wrapper">
+                            <div class="img">
+                                <img src="{{ cart.goods.goodsname }}" alt="">
+                            </div>
+                            <div class="detail">
+                                <p class="name">{{ cart.goods.name }}</p>
+                                <p class="price" price="{{ cart.goods.price }}">￥{{ cart.goods.price }}</p>
+                                <p class="num" num="{{ cart.number }}">x{{ cart.number }}</p>
+                            </div>
                         </div>
-                        <div class="detail">
-                            <p class="name">鱿鱼</p>
-                            <p class="price">￥</p>
-                            <p class="num">1</p>
-                        </div>
-                    </div>
-                </li>
-                 <li>
-                    <div class="confirm-wrapper">
-                            <span class="glyphicon glyphicon-ok"></span>
-                    </div>
+                    </li>
 
-                    <div class="content-wrapper">
-                        <div class="img">
-                            <img src="{% static 'img/hot_02.jpg' %}" alt="">
-                        </div>
-                        <div class="detail">
-                            <p class="name">麻辣烫</p>
-                            <p class="price">￥</p>
-                            <p class="num">1</p>
-                        </div>
-                    </div>
-                </li>
+                {% endfor %}
+
             </ul>
 
-        </div>
-        <div>
-            <p>删除</p>
+            <div class="bill">
+            <div class="bill-left">
+                <div class="all" isall="true">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <b>全选</b>
+                </div>
+                <div class="total">
+
+                </div>
+            </div>
+
+            <div class="bill-right" id="generateorder">
+                下单
+            </div>
         </div>
 
+        </div>
 
     </body>
 
