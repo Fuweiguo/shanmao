@@ -21,12 +21,16 @@ urlpatterns = [
 
     #添加购物车
     url(r'^addcart/$',views.addcart,name='addcart'),
-    #
+    #减商品
     url(r'^subcart/$',views.subcart,name='subcart'),
 
-    url(r'^generateorder/$', views.generateorder, name='generateorder'),  # 下单
+    # 下单
+    url(r'^generateorder/$', views.generateorder, name='generateorder'),
     url(r'^orderlist/(\d+)/$', views.orderlist, name='orderlist'),
-    url(r'^orderdetail/(.+)/$', views.orderdetail, name='orderdetail'),  # 订单详情
+    # 订单详情
+    url(r'^orderdetail/(.+)/$', views.orderdetail, name='orderdetail'),
 
+    #删除订单
+    # url(r'^delete/(\d+)/$', views.delete, name='delete'),
 ]
 

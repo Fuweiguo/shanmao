@@ -16,204 +16,147 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `app_cakr`
+-- Table structure for table `app_app_carts`
 --
 
-DROP TABLE IF EXISTS `app_cakr`;
+DROP TABLE IF EXISTS `app_app_carts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `app_cakr` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `goodsname` varchar(100) NOT NULL,
-  `num` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `app_cakr`
---
-
-LOCK TABLES `app_cakr` WRITE;
-/*!40000 ALTER TABLE `app_cakr` DISABLE KEYS */;
-/*!40000 ALTER TABLE `app_cakr` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `app_cart`
---
-
-DROP TABLE IF EXISTS `app_cart`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `app_cart` (
+CREATE TABLE `app_app_carts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `number` int(11) NOT NULL,
   `isselect` tinyint(1) NOT NULL,
-  `good_id` int(11) NOT NULL,
+  `goods_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `app_cart_good_id_de95c095_fk_app_goodse_id` (`good_id`),
-  KEY `app_cart_user_id_2bf07879_fk_app_usermode_id` (`user_id`),
-  CONSTRAINT `app_cart_good_id_de95c095_fk_app_goodse_id` FOREIGN KEY (`good_id`) REFERENCES `app_goodse` (`id`),
-  CONSTRAINT `app_cart_user_id_2bf07879_fk_app_usermode_id` FOREIGN KEY (`user_id`) REFERENCES `app_usermode` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `app_app_carts_goods_id_1dca7b94_fk_app_app_goods_id` (`goods_id`),
+  KEY `app_app_carts_user_id_f4034571_fk_app_usermodes_id` (`user_id`),
+  CONSTRAINT `app_app_carts_goods_id_1dca7b94_fk_app_app_goods_id` FOREIGN KEY (`goods_id`) REFERENCES `app_app_goods` (`id`),
+  CONSTRAINT `app_app_carts_user_id_f4034571_fk_app_usermodes_id` FOREIGN KEY (`user_id`) REFERENCES `app_usermodes` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `app_cart`
+-- Dumping data for table `app_app_carts`
 --
 
-LOCK TABLES `app_cart` WRITE;
-/*!40000 ALTER TABLE `app_cart` DISABLE KEYS */;
-/*!40000 ALTER TABLE `app_cart` ENABLE KEYS */;
+LOCK TABLES `app_app_carts` WRITE;
+/*!40000 ALTER TABLE `app_app_carts` DISABLE KEYS */;
+INSERT INTO `app_app_carts` VALUES (5,3,1,4,2),(6,3,1,5,2),(7,1,1,3,2),(26,6,1,5,1);
+/*!40000 ALTER TABLE `app_app_carts` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `app_goods`
+-- Table structure for table `app_app_goods`
 --
 
-DROP TABLE IF EXISTS `app_goods`;
+DROP TABLE IF EXISTS `app_app_goods`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `app_goods` (
+CREATE TABLE `app_app_goods` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `goodsname` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `app_goods`
---
-
-LOCK TABLES `app_goods` WRITE;
-/*!40000 ALTER TABLE `app_goods` DISABLE KEYS */;
-/*!40000 ALTER TABLE `app_goods` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `app_goodse`
---
-
-DROP TABLE IF EXISTS `app_goodse`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `app_goodse` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `img` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `price` int(11) NOT NULL,
-  `num` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `app_goodse`
---
-
-LOCK TABLES `app_goodse` WRITE;
-/*!40000 ALTER TABLE `app_goodse` DISABLE KEYS */;
-/*!40000 ALTER TABLE `app_goodse` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `app_goodslste`
---
-
-DROP TABLE IF EXISTS `app_goodslste`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `app_goodslste` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `goodsname` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `app_goodslste`
---
-
-LOCK TABLES `app_goodslste` WRITE;
-/*!40000 ALTER TABLE `app_goodslste` DISABLE KEYS */;
-/*!40000 ALTER TABLE `app_goodslste` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `app_imgs`
---
-
-DROP TABLE IF EXISTS `app_imgs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `app_imgs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `imgname` varchar(1000) NOT NULL,
+  `price` varchar(10) NOT NULL,
+  `prices` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `app_imgs`
+-- Dumping data for table `app_app_goods`
 --
 
-LOCK TABLES `app_imgs` WRITE;
-/*!40000 ALTER TABLE `app_imgs` DISABLE KEYS */;
-INSERT INTO `app_imgs` VALUES (1,'http://img01.bqstatic.com//upload/activity/2017031716035274.jpg@90Q.jpg'),(2,'http://img01.bqstatic.com//upload/activity/2017031710450787.jpg@90Q.jpg'),(3,'http://img01.bqstatic.com//upload/activity/2017030714522982.jpg@90Q.jpg'),(4,'http://img01.bqstatic.com//upload/activity/2017032116081698.jpg@90Q.jpg'),(5,'http://img01.bqstatic.com//upload/activity/2017032117283348.jpg@90Q.jpg');
-/*!40000 ALTER TABLE `app_imgs` ENABLE KEYS */;
+LOCK TABLES `app_app_goods` WRITE;
+/*!40000 ALTER TABLE `app_app_goods` DISABLE KEYS */;
+INSERT INTO `app_app_goods` VALUES (1,'/static/img/lbj2.jpg','iphone','75','117'),(2,'/static/img/lbj3.jpg','MINNETONKA','246','358'),(3,'/static/img/hot_02.jpg','oiwas ipai','248','358'),(4,'/static/img/hot_04.jpg','window','233','450'),(5,'/static/img/hot_05.jpg','vR','666','766');
+/*!40000 ALTER TABLE `app_app_goods` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `app_user`
+-- Table structure for table `app_order`
 --
 
-DROP TABLE IF EXISTS `app_user`;
+DROP TABLE IF EXISTS `app_order`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `app_user` (
+CREATE TABLE `app_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(80) NOT NULL,
-  `password` varchar(40) NOT NULL,
-  `phone` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `status` int(11) NOT NULL,
+  `createtime` datetime(6) NOT NULL,
+  `identifier` varchar(256) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `app_order_user_id_f25a9fc4_fk_app_usermodes_id` (`user_id`),
+  CONSTRAINT `app_order_user_id_f25a9fc4_fk_app_usermodes_id` FOREIGN KEY (`user_id`) REFERENCES `app_usermodes` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `app_user`
+-- Dumping data for table `app_order`
 --
 
-LOCK TABLES `app_user` WRITE;
-/*!40000 ALTER TABLE `app_user` DISABLE KEYS */;
-/*!40000 ALTER TABLE `app_user` ENABLE KEYS */;
+LOCK TABLES `app_order` WRITE;
+/*!40000 ALTER TABLE `app_order` DISABLE KEYS */;
+INSERT INTO `app_order` VALUES (1,0,'2019-01-21 03:56:10.508505','15480429700.8889995359385784',1),(2,0,'2019-01-21 03:56:11.634854','15480429710.9235989733217811',1),(3,0,'2019-01-21 03:56:12.282951','15480429720.7513501370929752',1),(4,0,'2019-01-21 03:56:12.923290','15480429720.9177674859400092',1),(5,0,'2019-01-21 03:56:13.584911','15480429730.5389548746134659',1),(6,0,'2019-01-21 03:56:13.752944','15480429730.6175611675768901',1),(7,0,'2019-01-21 03:56:13.986615','15480429730.06950056114472669',1),(8,0,'2019-01-21 03:56:14.153234','15480429740.9240098296446044',1),(9,0,'2019-01-21 03:56:14.357029','15480429740.847292109825914',1),(10,0,'2019-01-21 03:56:15.062452','15480429750.8932707128811348',1),(11,0,'2019-01-21 03:56:56.074908','15480430160.25425375123179805',1),(12,0,'2019-01-21 04:07:36.440399','15480436560.13207696624592025',1),(13,0,'2019-01-21 04:09:00.002146','15480437400.252021735557978',1),(14,0,'2019-01-21 04:12:44.795657','15480439640.3725604992732753',1),(15,0,'2019-01-21 04:14:17.826735','15480440570.7205265321632758',1),(16,0,'2019-01-21 04:14:19.219228','15480440590.8120386485055028',1),(17,0,'2019-01-21 04:14:45.422409','15480440850.4017250545105039',1),(18,0,'2019-01-21 04:16:45.096061','15480442050.2209404905007205',1),(19,0,'2019-01-21 04:16:46.224237','15480442060.320398127721536',1),(20,0,'2019-01-21 04:17:10.449275','15480442300.029991663073339003',1),(21,0,'2019-01-21 04:21:39.901744','15480444990.3897077851120402',1),(22,0,'2019-01-21 04:23:41.456121','15480446210.9898891254627321',1),(23,0,'2019-01-21 04:47:48.512401','15480460680.6614264802832828',1),(24,0,'2019-01-21 04:52:36.564096','15480463560.2734582404102719',1),(25,0,'2019-01-21 05:03:30.023731','15480470100.08250781106484006',1),(26,0,'2019-01-21 05:09:25.999773','15480473650.5698292264381203',1),(27,0,'2019-01-21 05:10:26.483787','15480474260.8549807027563189',1),(28,0,'2019-01-21 05:23:41.291538','15480482210.4663072643497108',1),(29,0,'2019-01-21 05:24:29.151045','15480482690.44444379657587774',1),(30,0,'2019-01-21 05:24:49.079463','15480482890.8707091078426411',1),(31,0,'2019-01-21 05:26:13.098110','15480483730.3106464082874494',1),(32,0,'2019-01-21 05:32:58.856580','15480487780.15432634398985157',1),(33,0,'2019-01-21 05:33:08.923789','15480487880.2001784058114806',1),(34,0,'2019-01-21 05:44:48.568432','15480494880.14979921184669753',1),(35,0,'2019-01-21 05:47:40.989772','15480496600.7938991894266895',1),(36,0,'2019-01-21 05:56:33.527286','15480501930.16243541788700666',1),(37,0,'2019-01-21 06:06:36.447636','15480507960.7753750658695073',1),(38,0,'2019-01-21 06:08:21.903778','15480509010.2660099487001868',1),(39,0,'2019-01-21 06:16:04.514189','15480513640.23070720591398897',1),(40,0,'2019-01-21 06:16:20.441164','15480513800.1783134905805126',1),(41,0,'2019-01-21 06:21:45.891814','15480517050.4528643184537111',1),(42,0,'2019-01-21 06:22:00.293555','15480517200.6697355440905121',1),(43,0,'2019-01-21 06:25:07.280599','15480519070.9611507305503572',1),(44,0,'2019-01-21 06:27:50.127144','15480520700.7487255608150284',1),(45,0,'2019-01-21 06:29:27.167511','15480521670.9197692600788295',1),(46,0,'2019-01-21 06:37:06.133509','15480526260.29113165249354633',1),(47,0,'2019-01-21 06:41:39.145075','15480528990.10637648104224207',1),(48,0,'2019-01-21 06:43:16.557666','15480529960.9708240885365693',1),(49,0,'2019-01-21 06:43:52.538872','15480530320.00029563847567237733',1),(50,0,'2019-01-21 06:53:29.073764','15480536090.5547724951894293',3),(51,0,'2019-01-21 06:55:17.171097','15480537170.3224311814704445',3),(52,0,'2019-01-21 08:10:36.725185','15480582360.9980925570284603',3);
+/*!40000 ALTER TABLE `app_order` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `app_usermode`
+-- Table structure for table `app_ordergoods`
 --
 
-DROP TABLE IF EXISTS `app_usermode`;
+DROP TABLE IF EXISTS `app_ordergoods`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `app_usermode` (
+CREATE TABLE `app_ordergoods` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `number` int(11) NOT NULL,
+  `goods_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `app_ordergoods_order_id_ef926487_fk_app_order_id` (`order_id`),
+  KEY `app_ordergoods_goods_id_b3c19f94_fk_app_app_goods_id` (`goods_id`),
+  CONSTRAINT `app_ordergoods_goods_id_b3c19f94_fk_app_app_goods_id` FOREIGN KEY (`goods_id`) REFERENCES `app_app_goods` (`id`),
+  CONSTRAINT `app_ordergoods_order_id_ef926487_fk_app_order_id` FOREIGN KEY (`order_id`) REFERENCES `app_order` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `app_ordergoods`
+--
+
+LOCK TABLES `app_ordergoods` WRITE;
+/*!40000 ALTER TABLE `app_ordergoods` DISABLE KEYS */;
+INSERT INTO `app_ordergoods` VALUES (1,2,1,28),(2,13,3,28),(3,1,5,28),(4,3,2,28),(5,1,3,32),(6,2,1,34),(7,4,1,36),(8,1,4,36),(9,1,4,37),(10,1,3,37),(11,3,3,38),(12,1,4,40),(18,1,1,47),(19,1,3,48),(20,1,2,48),(21,1,2,49),(22,1,5,49),(23,2,2,50),(24,1,4,50),(25,8,2,52),(26,13,3,52),(27,8,4,52);
+/*!40000 ALTER TABLE `app_ordergoods` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `app_usermodes`
+--
+
+DROP TABLE IF EXISTS `app_usermodes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `app_usermodes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(100) NOT NULL,
   `email` varchar(40) NOT NULL,
   `password` varchar(40) NOT NULL,
+  `token` varchar(256) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `app_usermode`
+-- Dumping data for table `app_usermodes`
 --
 
-LOCK TABLES `app_usermode` WRITE;
-/*!40000 ALTER TABLE `app_usermode` DISABLE KEYS */;
-INSERT INTO `app_usermode` VALUES (1,'123','123','123'),(2,'f1234567','1234@1234.com','1234567'),(3,'f1234567','sfsdf@sefs.com','12345678'),(4,'Q12345','12345@123.com','q12345'),(5,'qwertyu','asd@qq.com','qwertyu'),(6,'qaz','asd@qq.com','qaz'),(7,'q12345678','asd@qq.com','12345678'),(8,'f1234567','asd@qq.com','12345678'),(9,'q123456789','asd@qq.com','q123456789'),(10,'f1234567','asd@qq.com','12345678'),(11,'qwertyui','asd@qq.com','qwertyui'),(12,'w12345678','admin123@qwe.cn','123456789');
-/*!40000 ALTER TABLE `app_usermode` ENABLE KEYS */;
+LOCK TABLES `app_usermodes` WRITE;
+/*!40000 ALTER TABLE `app_usermodes` DISABLE KEYS */;
+INSERT INTO `app_usermodes` VALUES (1,'f123456789','sfs@qq.com','811278734cbf9a25c1ddd786f8ebbba9','ae3b24bd202ad9b3489c2ab679c86583'),(2,'q1234567890','sfsa@dd.com','fccdd5362a9f1653e55dc1d720fbcf0e','7913155b8dc916c77ccba29ea06f976c'),(3,'a123456','aa@qq.com','dc483e80a7a0bd9ef71d8cf973673924','19c5aad224488a62b980446f5b2ec27b');
+/*!40000 ALTER TABLE `app_usermodes` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -283,7 +226,7 @@ CREATE TABLE `auth_permission` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`),
   CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -292,7 +235,7 @@ CREATE TABLE `auth_permission` (
 
 LOCK TABLES `auth_permission` WRITE;
 /*!40000 ALTER TABLE `auth_permission` DISABLE KEYS */;
-INSERT INTO `auth_permission` VALUES (1,'Can add log entry',1,'add_logentry'),(2,'Can change log entry',1,'change_logentry'),(3,'Can delete log entry',1,'delete_logentry'),(4,'Can add user',2,'add_user'),(5,'Can change user',2,'change_user'),(6,'Can delete user',2,'delete_user'),(7,'Can add permission',3,'add_permission'),(8,'Can change permission',3,'change_permission'),(9,'Can delete permission',3,'delete_permission'),(10,'Can add group',4,'add_group'),(11,'Can change group',4,'change_group'),(12,'Can delete group',4,'delete_group'),(13,'Can add content type',5,'add_contenttype'),(14,'Can change content type',5,'change_contenttype'),(15,'Can delete content type',5,'delete_contenttype'),(16,'Can add session',6,'add_session'),(17,'Can change session',6,'change_session'),(18,'Can delete session',6,'delete_session'),(19,'Can add user',7,'add_user'),(20,'Can change user',7,'change_user'),(21,'Can delete user',7,'delete_user'),(22,'Can add goods',8,'add_goods'),(23,'Can change goods',8,'change_goods'),(24,'Can delete goods',8,'delete_goods'),(25,'Can add goodslste',9,'add_goodslste'),(26,'Can change goodslste',9,'change_goodslste'),(27,'Can delete goodslste',9,'delete_goodslste'),(28,'Can add usermode',10,'add_usermode'),(29,'Can change usermode',10,'change_usermode'),(30,'Can delete usermode',10,'delete_usermode'),(31,'Can add imgs',11,'add_imgs'),(32,'Can change imgs',11,'change_imgs'),(33,'Can delete imgs',11,'delete_imgs'),(34,'Can add cakr',12,'add_cakr'),(35,'Can change cakr',12,'change_cakr'),(36,'Can delete cakr',12,'delete_cakr'),(37,'Can add goodse',13,'add_goodse'),(38,'Can change goodse',13,'change_goodse'),(39,'Can delete goodse',13,'delete_goodse'),(40,'Can add cart',14,'add_cart'),(41,'Can change cart',14,'change_cart'),(42,'Can delete cart',14,'delete_cart');
+INSERT INTO `auth_permission` VALUES (1,'Can add log entry',1,'add_logentry'),(2,'Can change log entry',1,'change_logentry'),(3,'Can delete log entry',1,'delete_logentry'),(4,'Can add permission',2,'add_permission'),(5,'Can change permission',2,'change_permission'),(6,'Can delete permission',2,'delete_permission'),(7,'Can add user',3,'add_user'),(8,'Can change user',3,'change_user'),(9,'Can delete user',3,'delete_user'),(10,'Can add group',4,'add_group'),(11,'Can change group',4,'change_group'),(12,'Can delete group',4,'delete_group'),(13,'Can add content type',5,'add_contenttype'),(14,'Can change content type',5,'change_contenttype'),(15,'Can delete content type',5,'delete_contenttype'),(16,'Can add session',6,'add_session'),(17,'Can change session',6,'change_session'),(18,'Can delete session',6,'delete_session'),(19,'Can add app_goods',7,'add_app_goods'),(20,'Can change app_goods',7,'change_app_goods'),(21,'Can delete app_goods',7,'delete_app_goods'),(22,'Can add app_ carts',8,'add_app_carts'),(23,'Can change app_ carts',8,'change_app_carts'),(24,'Can delete app_ carts',8,'delete_app_carts'),(25,'Can add user modes',9,'add_usermodes'),(26,'Can change user modes',9,'change_usermodes'),(27,'Can delete user modes',9,'delete_usermodes'),(28,'Can add order goods',10,'add_ordergoods'),(29,'Can change order goods',10,'change_ordergoods'),(30,'Can delete order goods',10,'delete_ordergoods'),(31,'Can add order',11,'add_order'),(32,'Can change order',11,'change_order'),(33,'Can delete order',11,'delete_order');
 /*!40000 ALTER TABLE `auth_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -431,7 +374,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -440,7 +383,7 @@ CREATE TABLE `django_content_type` (
 
 LOCK TABLES `django_content_type` WRITE;
 /*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
-INSERT INTO `django_content_type` VALUES (1,'admin','logentry'),(12,'app','cakr'),(14,'app','cart'),(8,'app','goods'),(13,'app','goodse'),(9,'app','goodslste'),(11,'app','imgs'),(7,'app','user'),(10,'app','usermode'),(4,'auth','group'),(3,'auth','permission'),(2,'auth','user'),(5,'contenttypes','contenttype'),(6,'sessions','session');
+INSERT INTO `django_content_type` VALUES (1,'admin','logentry'),(8,'app','app_carts'),(7,'app','app_goods'),(11,'app','order'),(10,'app','ordergoods'),(9,'app','usermodes'),(4,'auth','group'),(2,'auth','permission'),(3,'auth','user'),(5,'contenttypes','contenttype'),(6,'sessions','session');
 /*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -457,7 +400,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -466,7 +409,7 @@ CREATE TABLE `django_migrations` (
 
 LOCK TABLES `django_migrations` WRITE;
 /*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
-INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2019-01-09 13:21:47.518624'),(2,'auth','0001_initial','2019-01-09 13:21:47.996738'),(3,'admin','0001_initial','2019-01-09 13:21:48.074118'),(4,'admin','0002_logentry_remove_auto_add','2019-01-09 13:21:48.099291'),(5,'app','0001_initial','2019-01-09 13:21:48.132792'),(6,'contenttypes','0002_remove_content_type_name','2019-01-09 13:21:48.195537'),(7,'auth','0002_alter_permission_name_max_length','2019-01-09 13:21:48.209814'),(8,'auth','0003_alter_user_email_max_length','2019-01-09 13:21:48.246807'),(9,'auth','0004_alter_user_username_opts','2019-01-09 13:21:48.261638'),(10,'auth','0005_alter_user_last_login_null','2019-01-09 13:21:48.288182'),(11,'auth','0006_require_contenttypes_0002','2019-01-09 13:21:48.291704'),(12,'auth','0007_alter_validators_add_error_messages','2019-01-09 13:21:48.303561'),(13,'auth','0008_alter_user_username_max_length','2019-01-09 13:21:48.322762'),(14,'sessions','0001_initial','2019-01-09 13:21:48.351491'),(15,'app','0002_goods_goodslste_usermode','2019-01-10 09:46:51.522662'),(16,'app','0003_imgs','2019-01-11 10:30:50.562553'),(17,'app','0004_auto_20190112_0307','2019-01-12 03:07:43.276024'),(18,'app','0005_auto_20190116_1307','2019-01-16 13:07:56.784384'),(19,'app','0006_auto_20190116_1350','2019-01-16 13:50:10.541098');
+INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2019-01-20 06:58:34.613933'),(2,'auth','0001_initial','2019-01-20 06:58:34.966998'),(3,'admin','0001_initial','2019-01-20 06:58:35.107325'),(4,'admin','0002_logentry_remove_auto_add','2019-01-20 06:58:35.134335'),(5,'app','0001_initial','2019-01-20 06:58:35.327581'),(6,'contenttypes','0002_remove_content_type_name','2019-01-20 06:58:35.491003'),(7,'auth','0002_alter_permission_name_max_length','2019-01-20 06:58:35.511873'),(8,'auth','0003_alter_user_email_max_length','2019-01-20 06:58:35.550053'),(9,'auth','0004_alter_user_username_opts','2019-01-20 06:58:35.576160'),(10,'auth','0005_alter_user_last_login_null','2019-01-20 06:58:35.612908'),(11,'auth','0006_require_contenttypes_0002','2019-01-20 06:58:35.617765'),(12,'auth','0007_alter_validators_add_error_messages','2019-01-20 06:58:35.631191'),(13,'auth','0008_alter_user_username_max_length','2019-01-20 06:58:35.650225'),(14,'sessions','0001_initial','2019-01-20 06:58:35.673776'),(15,'app','0002_order_ordergoods','2019-01-20 13:45:28.723418'),(16,'app','0003_auto_20190121_0523','2019-01-21 05:23:15.864588');
 /*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -492,6 +435,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
+INSERT INTO `django_session` VALUES ('9olm59fqz5col42aapzoasxqslzvzxal','OWNlOTcwN2E3MjRkMjAyMmIyNWZhMWEyYWVhZmI0YzBkYTc2ZmFkMzp7InRva2VuIjoiYjIwZTM3MTRiZTY3Nzk0NTQzNTVhNWFlMDdjNTUxNGMifQ==','2019-02-04 02:54:08.637805'),('bn5jl728sbjekys2cwbilp473m8kxe9u','MGE1NGYyMThiNjZlN2MwYTNhMTI3Yjk1YmFmZjU5YmE1YzE5Y2VkMzp7InRva2VuIjoiODgxNzllM2Y0M2MzYjk0ZDllNWU3MTkzNjZiY2ZmODcifQ==','2019-02-03 13:37:56.442342'),('gr8pp7c973861fidtf73b61q4jrt3w2w','NTI2MzVkYTg3ODQ1YTg5NjNmZDQ3ZWRiYzdlNjQ4OWEyY2ZkNDM1Zjp7InRva2VuIjoiNWIwZGNjNDE2MWQ3OTVkNGJmYTY5NTAyMDY1MWZmMzUifQ==','2019-02-03 13:08:13.351495'),('htv527il8popm38ynyoo36q2hwum2yhl','OTExOTQ1YzhiNmNmYTVkOTc5MmFiZGE1YjViMmI1ZjJiMjZiMjJlOTp7InRva2VuIjoiMWJmNmYwNzJjNDFjY2E0YTYwMzYxYmRjOWFmNzIzNGQifQ==','2019-02-04 00:59:50.428862'),('ie5zt46wd2aj558w0n382jhgnickwaeh','ZDRjZWJhNjZjMmIzZDRhNGU3MGI5Zjk0YjkyNmIwNGU2NDRkMTExZDp7InRva2VuIjoiMTljNWFhZDIyNDQ4OGE2MmI5ODA0NDZmNWIyZWMyN2IifQ==','2019-02-04 07:43:55.531138'),('k4xw4legx0vn2672ilsdzp22aw307jqu','ZjIyZjg2NWEyYWQwOGU1ZjNmZGQwNTQzMDEzZmNmNmNmZDljMzJmYjp7InRva2VuIjoiNzkxMzE1NWI4ZGM5MTZjNzdjY2JhMjllYTA2Zjk3NmMifQ==','2019-02-03 14:24:34.180547'),('o2vws9uj2i6odj0lr9abv1s9djgg0haj','MjZiOTBiMWI1NjBhYzkwMDJhNDU1ZGEzOWM5YWI0NmExMjYwNThkMzp7InRva2VuIjoiYmI0ZGZiYTY2ZjJjZTU4Njk1NTNiNjhmMzRjYjdjYzcifQ==','2019-02-03 14:43:36.315838'),('wrnhu1xo02r7v37495yzb4xv3gjn1ymv','NDc2NDI0Nzk1MDMyMTVkMjcwNGU2NTA2NDIwMTAwMWQwODIyYjY2NTp7InRva2VuIjoiZTdjOGIyZDQ5NTQ2ZDhmM2IzMGU2OGFhYzQ4ZTRiNTkifQ==','2019-02-03 07:03:31.595208'),('xbw9819g1p6nhbud37q9ncjjcrq85nto','ZjExM2Q4ODdhOWVhMTEyNzRlMTM3NTlmYTlhOWQ5YmM2ZWVkMGI3NDp7InRva2VuIjoiMzg4N2VhMThkNzRhNmU2MjA1ODgxYmQ0MTgwZjc1ZDMifQ==','2019-02-03 13:01:23.280280');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -504,4 +448,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-17 17:09:23
+-- Dump completed on 2019-01-21 19:07:19

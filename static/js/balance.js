@@ -1,37 +1,39 @@
 $(function () {
-    total()
-    // 计算总数
+    console.log("js")
+    // $('.goods').each(function () {
+    //     console.log("总价")
+    //     var $content = $(this).find('.total')
+    //
+    // })
+    //
+    //
+
+    // 计算总价
     function total(){
-        var sum = 0
+        var n= $('.price').length;
+        var sums = 0;
 
-        $('.goods').each(function () {
-            console.log("sdfsdfsfsddfsf")
-            var $content = $(this).find('.content-wrapper')
+       for (var m=0;m<n;m++) {
+            console.log("for")
+           var sum = parseFloat($('.price').eq(m).text())* parseInt($('.num').eq(m).text());
+           console.log(sum)
+           sums += sum;
 
-            // 选中
-
-            var num = $content.find('.num').attr('num')
-            var price = $content.find('.price').attr('price')
-
-            sum += num * price
-
-        })
-
+       }
         // 设置显示
-        $('.bill .total').html(sum)
-
+        $('.total').html(parseInt(sums))
     }
-
-
-
+    total()
 
     // 下单
     $('#generateorder').click(function () {
-        $.get('/axf/generateorder/', function (response) {
+        console.log("点击")
+        $.get('/mt/generateorder/', function (response) {
             console.log(response)
+            console.log('下单中')
             if (response.status == 1){  // 订单详情页
-                window.open('/axf/orderdetail/' + response.identifier + '/', target='_self')
+                window.open('/mt/orderdetail/' + response.identifier + '/', target='_self')
             }
         })
     })
-}
+})

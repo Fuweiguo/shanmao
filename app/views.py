@@ -2,12 +2,13 @@ from django.shortcuts import render, redirect
 import hashlib
 import time
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, JsonResponse
-from app.models import app_goods,UserModes,app_Carts,Order,OrderGoods
+from app.models import app_goods , UserModes , app_Carts , Order , OrderGoods
 import random
 
 
 
 # Create your views here.
+# 主页
 def index(request):
     try:
         token = request.session.get('token')
@@ -28,6 +29,7 @@ def index(request):
 
         return render(request, 'index.html', context=data)
 
+# 注册
 def regist(request):
     if request.method == 'GET': # 获取注册页面
         return render(request, 'regist.html')
@@ -48,18 +50,20 @@ def regist(request):
 
     return redirect('mt:index')
 
-
+# 密码加密
 def generate_password(param):
     md5 = hashlib.md5()
     md5.update(param.encode('utf-8'))
     return md5.hexdigest()
 
+# token加密
 def generate_token():
     md5 = hashlib.md5()
     tempstr = str(time.time()) + str(random.random())
     md5.update(tempstr.encode('utf-8'))
     return md5.hexdigest()
 
+# 登录
 def login(request):
     if request.method == 'GET':  # 获取登录页面
         return render(request, 'login.html')
@@ -102,36 +106,46 @@ def checkemail(request):
         return JsonResponse({'msg': '账号可以使用!', 'status':1})
 
 
-
+# 购物车
 def balance(request):
     token = request.session.get('token')
-    user = UserModes.objects.all().get(token=token)
-    carts = app_Carts.objects.filter(user=user)
-    print(type(carts))
-    data = {
-        "carts": carts,
-    }
+    if token:
+        user = UserModes.objects.all().get(token=token)
+        carts = app_Carts.objects.filter(user=user).exclude(number=0)
+        print(type(carts))
+        data = {
+            "carts": carts,
+        }
 
 
-    return render(request,'balance.html',context=data)
+        return render(request,'balance.html',context=data)
+    else:
+        return redirect('mt:login')
 
-
+# 详情
 def nike(request,id):
     goods = app_goods.objects.get(pk=id)
-    carts = []
-    data = {
-        'carts': carts,
-        'goods':goods
-    }
+    token = request.session.get('token')
+    if token:
+        user = UserModes.objects.all().get(token=token)
+        carts = app_Carts.objects.filter(user=user)
+        data = {
+            'carts': carts,
+            'goods':goods
+        }
 
-    return render(request,'nike.html',context=data)
+        return render(request,'nike.html',context=data)
+    else:
+        return redirect('mt:login')
 
 
+
+# 注销
 def logout(request):
     request.session.flush()
-    return redirect('mt:')
+    return redirect('mt:index')
 
-
+#添加购物车
 def addcart(request):
     # 有token，就知道是谁
     token = request.session.get('token')
@@ -144,14 +158,6 @@ def addcart(request):
         # print('token')
         goodsid = request.GET.get('goodsid')
         goods = app_goods.objects.get(pk=goodsid)
-
-        # carts = Carts.objects.get(pk='1')
-        # print(carts,"00000")
-        # print(type(carts))
-
-        # 第一次操作: 添加一条新记录
-        # 后续操作: 只需要修改number
-
         # 判断该商品是否存在
         print(user.username,user.email,user.id,goods.id)
         cartss = app_Carts.objects.filter(user=user).filter(goods=goods)
@@ -171,17 +177,11 @@ def addcart(request):
             carts.number = 1
             carts.save()
 
-        return JsonResponse({'msg' : '{}-添加购物车成功!'.format(goods.productlongname),'status': 1, 'number':app_Carts.number})
+        return JsonResponse({'msg' : '添加购物车成功!','status': 1, 'number': carts.number})
     else:       # 跳转到登录(未登录)
-        # 在ajax是不能使用重定向
-        # ajax更多就是用于数据的传输(数据交互)
-
-        # 问题: 没有登录，就需要跳转到登录页面；
-        # 但在服务端重定向能不能用？   客户端
-        # return redirect('axf:login')
         return JsonResponse({'msg':'请登录后操作!','status': 0})
 
-
+# 减删商品
 def subcart(request):
     token = request.session.get('token')
     user = UserModes.objects.get(token=token)
@@ -194,9 +194,9 @@ def subcart(request):
     cart.save()
 
     responseData = {
-        'msg': '{}-商品删减成功'.format(goods.productlongname),
+        'msg': '商品删减成功',
         'status': 1,
-        'number': cart.number
+        'number': cart.number,
     }
 
     return JsonResponse(responseData)
@@ -210,6 +210,7 @@ def generate_identifire():
 #下单
 def generateorder(request):
     token = request.session.get('token')
+    print('进入下单')
     user = UserModes.objects.get(token=token)
 
     # 订单
@@ -222,10 +223,17 @@ def generateorder(request):
     carts = app_Carts.objects.filter(user=user).filter(isselect=True).exclude(number=0)
     # 添加到订单中
     for cart in carts:
+        print('循环')
         orderGoods = OrderGoods()
+        print('订单商品')
         orderGoods.order = order
-        orderGoods.goods = cart.goods
+        print('绑定订单')
+        a = cart.goods
+        print(type(a))
+        orderGoods.goods = a
+        print('绑定商品')
         orderGoods.number = cart.number
+
         orderGoods.save()
 
         # 从购物车中删除
@@ -250,3 +258,12 @@ def orderlist(request, status):
     orders = Order.objects.filter(status=status)
 
     return render(request, 'orderlist.html', context={'orders': orders})
+
+
+# def delete(request,id):
+#     print('进了')
+#     goods = OrderGoods.objects.all().get(pk=id)
+#     print('sdfdf')
+#     goods.delete()
+#     render(request, 'orderdetail.html')
+# #     goods = app_goods.objects.get(pk=id)

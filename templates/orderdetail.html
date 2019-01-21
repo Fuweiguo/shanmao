@@ -31,18 +31,19 @@
         </p>
         <ul>
             {% for orderGoods in order.ordergoods_set.all %}
-            <li class="goods">
-                <div class="content-wrapper">
-                    <div class="img">
-                        <img src="{{ orderGoods.goods.productimg }}" alt="">
+                <li class="goods">
+                    <div class="content-wrapper">
+                        <div class="img">
+                            <img src="{{ orderGoods.goods.goodsname }}" alt="">
+                        </div>
+                        <div class="detail">
+                            <p class="name">{{ orderGoods.goods.productlongname }}</p>
+                            <p class="price" price="{{ orderGoods.goods.price }}">￥{{ orderGoods.goods.price }}</p>
+                            <p class="num" num="{{ orderGoods.number }}">x{{ orderGoods.number }}</p>
+{#                            <a href="{% url 'mt:delete' orderGoods.id %}">删除</a>#}
+                        </div>
                     </div>
-                    <div class="detail">
-                        <p class="name">{{ orderGoods.goods.productlongname }}</p>
-                        <p class="price" price="{{ orderGoods.goods.price }}">￥{{ orderGoods.goods.price }}</p>
-                        <p class="num" num="{{ orderGoods.number }}">x{{ orderGoods.number }}</p>
-                    </div>
-                </div>
-            </li>
+                </li>
             {% endfor %}
         </ul>
 

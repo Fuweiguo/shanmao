@@ -53,7 +53,7 @@ class OrderGoods(models.Model):
     # 订单
     order = models.ForeignKey(Order)
     # 商品
-    goods = models.ForeignKey(app_Carts)
+    goods = models.ForeignKey(app_goods)
     # 商品规格
     number = models.IntegerField()
 
